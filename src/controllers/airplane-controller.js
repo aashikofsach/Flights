@@ -3,6 +3,7 @@ const { StatusCodes } = require("http-status-codes");
 
 async function createAirplane(req, res) {
   try {
+    console.log("Body is", req.body)
     const resposne = await AirplaneService.createAirplane({
       modelNumber: req.body.modelNumber,
       capacity: req.body.capacity,

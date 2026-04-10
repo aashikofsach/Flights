@@ -7,7 +7,10 @@ class CrudRepository {
 
   async create(data) {
     try {
+        console.log("body data in crud repo", data)
       const response = await this.model.create(data);
+      console.log("what is the response ", response)
+      return response ;
     } catch (error) {
       logger.error("Something went wrong in the CRUD Repo : create");
       throw error;
@@ -20,7 +23,9 @@ class CrudRepository {
         where: {
           id: data,
         },
+
       });
+      return response
     } catch (error) {
       logger.error("Something went wrong in the CRUD Repo : create");
       throw error;
@@ -30,6 +35,7 @@ class CrudRepository {
   async get(data) {
     try {
       const response = await this.model.findByPk(data);
+      return response ;
     } catch (error) {
       logger.error("Something went wrong in the CRUD Repo : create");
       throw error;
@@ -39,6 +45,7 @@ class CrudRepository {
   async getAll(data) {
     try {
       const response = await this.model.findAll(data);
+      return response ;
     } catch (error) {
       logger.error("Something went wrong in the CRUD Repo : create");
       throw error;
@@ -53,6 +60,7 @@ class CrudRepository {
           id: id,
         },
       });
+      return response ;
     } catch (error) {
       logger.error("Something went wrong in the CRUD Repo : create");
       throw error;
