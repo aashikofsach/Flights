@@ -12,6 +12,7 @@ class CrudRepository {
       console.log("what is the response ", response)
       return response ;
     } catch (error) {
+        console.log('error is yaha tak', error )
       logger.error("Something went wrong in the CRUD Repo : create");
       throw error;
     }
