@@ -19,7 +19,7 @@ async function createAirplane(data) {
 
         console.log("jai maata di jai bajrang bali", explaination);
 
-        throw new AppError("Cannot able ot create new Airplane object",StatusCodes.INTERNAL_SERVER_ERROR)
+        throw new AppError(explaination,StatusCodes.BAD_REQUEST)
     }
         
     throw new AppError("Cannot able ot create new Airplane object",StatusCodes.INTERNAL_SERVER_ERROR)
