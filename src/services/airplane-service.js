@@ -40,4 +40,17 @@ async function getAirplanes() {
   }
 }
 
-module.exports = { createAirplane, getAirplanes };
+
+async function getAirplane(id) {
+  try {
+    const airplanes = await airplaneRepository.get(id);
+    return airplanes;
+  } catch (error) {
+    throw new AppError(
+      "Cannot able to get airplane ",
+      StatusCodes.INTERNAL_SERVER_ERROR,
+    );
+  }
+}
+
+module.exports = { createAirplane, getAirplanes , getAirplane};
