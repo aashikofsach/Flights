@@ -20,6 +20,9 @@ class CrudRepository {
         id: data,
       },
     });
+    if(!response)
+      throw new AppError("Data not present in the DB", StatusCodes.NOT_FOUND) ;
+
     return response;
   }
 
