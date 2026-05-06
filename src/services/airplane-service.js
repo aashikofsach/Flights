@@ -43,9 +43,11 @@ async function getAirplanes() {
 
 async function getAirplane(id) {
   try {
-    const airplanes = await airplaneRepository.get(id);
-    return airplanes;
+    const airplane = await airplaneRepository.get(id);
+    return airplane;
   } catch (error) {
+    if(error.statusCode === StatusCodes.NOT_FOUND)
+      throw new AppError("The Airplane which you requested not found", error.statusCode);
     throw new AppError(
       "Cannot able to get airplane ",
       StatusCodes.INTERNAL_SERVER_ERROR,
