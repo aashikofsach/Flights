@@ -1,6 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const { AirplaneRepository } = require("../repositories");
 const AppError = require("../utils/errors/app-error");
+const airplane = require("../models/airplane");
 
 const airplaneRepository = new AirplaneRepository();
 
@@ -74,4 +75,23 @@ async function destroyAirplane(id) {
   }
 }
 
-module.exports = { createAirplane, getAirplanes, getAirplane , destroyAirplane };
+async function updateAirplane(id, data) {
+  try {
+    const updatedResponse = await airplaneRepository.update(id, data);
+    console.log("here is the updated response", updatedResponse);
+
+    return updatedResponse;
+  } catch (error) {
+    if(error.statusCode === StatusCodes.NOT_FOUND)
+      throw new AppError("The Airplane requested to update is not present", error.statusCode) ;
+    throw new AppError("Something went wrong", StatusCodes.INTERNAL_SERVER_ERROR)
+  }
+}
+
+module.exports = {
+  createAirplane,
+  getAirplanes,
+  getAirplane,
+  destroyAirplane,
+  updateAirplane,
+};
