@@ -48,8 +48,23 @@ async function destroyCity(id) {
 }
 
 
+async function updateCity(id, data) {
+  try {
+    const updatedResponse = await cityRepository.update(id, data);
+    console.log("here is the updated response", updatedResponse);
+
+    return updatedResponse;
+  } catch (error) {
+    if(error.statusCode === StatusCodes.NOT_FOUND)
+      throw new AppError("The City requested to update is not present", error.statusCode) ;
+    throw new AppError("Something went wrong", StatusCodes.INTERNAL_SERVER_ERROR)
+  }
+}
+
+
 module.exports ={
     createCity,
-    destroyCity
+    destroyCity,
+    updateCity
 
 }

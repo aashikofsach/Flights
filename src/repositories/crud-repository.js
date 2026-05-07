@@ -48,7 +48,7 @@ class CrudRepository {
     });
     if (response[0] == 0)
       throw new AppError(
-        "Airplane not present which you wanna update",
+        "Entity not present which you wanna update",
         StatusCodes.NOT_FOUND,
       );
     return response;

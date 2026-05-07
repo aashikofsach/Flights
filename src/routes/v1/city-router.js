@@ -12,5 +12,7 @@ router.post(
 // router.get("/", airplaneController.getAirplanes);
 // router.get("/:id", airplaneController.getAirplane);
 router.delete("/:id",cityController.destroyCity);
+router.patch("/:id",cityController.updateCity)
 
 module.exports = router;
+    

@@ -28,8 +28,26 @@ async function destroyCity(req, res) {
     return res.status(error.statusCode).json(ErrorResponse);
   }
 }
+
+
+async function updateCity(req, res) {
+  try {
+    console.log("Body is", req.body);
+    const resposne = await CityService.updateCity(req.params.id , {
+      name: req.body?.name,
+    });
+    SuccessResponse.data = resposne;
+
+    return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
+  }
+}
+
 module.exports = {
   createCity,
-  destroyCity
+  destroyCity ,
+  updateCity
 
 };
