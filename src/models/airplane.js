@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo("Cities")
+
     }
   }
   // here we added the object of type and allowNull, by default we just get modelNumber : DataTypes.STRING
