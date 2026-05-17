@@ -17,7 +17,12 @@ app.listen(ServerConfig.PORT, async () => {
   const { City, Airport } = require("./models");
   const city = await City.findByPk(1);
   console.log(city);
-  await city.createAirport({name : "Aashu's Airport" , address : "ladwa"})
-  const airports = await city.getAirports() ;
-  console.log(airports);
+  // await city.createAirport({name : "Aashu's Airport" , address : "ladwa"})
+  // const airports = await city.getAirports() ;
+  // console.log(airports);
+
+  const aashu_airport = await Airport.findByPk(1);
+  console.log(aashu_airport, "jai maata di ")
+  await city.removeAirport(aashu_airport);
+  
 });
