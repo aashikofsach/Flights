@@ -27,6 +27,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         unique: true,
       },
+      code :{
+        type : DataTypes.STRING,
+        allowNull : false,
+        unique : true
+
+      },
       cityId: {
         type: DataTypes.INTEGER,
         allowNull: false,
