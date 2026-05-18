@@ -25,11 +25,18 @@ app.listen(ServerConfig.PORT, async () => {
   // console.log(aashu_airport, "jai maata di ")
   // await city.removeAirport(aashu_airport);
 
-  await City.destroy({
-    where : {
-      id : 1
-    }
-  })
+  // await City.destroy({
+  //   where : {
+  //     id : 1
+  //   }
+  // })
+
+  // // await City.create({name : "Mumbai"});
+  // const city = await City.findByPk(10);
+  // console.log(city) ;
+
+  // // await city.createAirport({name : "Kempegowda" , address : "banglore", code : "KGD", cityId : 10});
+  // await city.createAirport({name :"Sach airport1", address : "banglore3" , code : "SATQ", cityId : 10})
 
 
 
