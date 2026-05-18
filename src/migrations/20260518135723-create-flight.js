@@ -28,7 +28,7 @@ module.exports = {
         allowNull : false,
          references :{
           table:"Airports",
-          field: "id"
+          field: "code"
         },
         onDelete :"CASCADE",
         onUpdate : "CASCADE"
@@ -38,7 +38,7 @@ module.exports = {
         allowNull :false,
          references :{
           table:"Airports",
-          field: "id"
+          field: "code"
         },
         onDelete :"CASCADE",
         onUpdate : "CASCADE"
