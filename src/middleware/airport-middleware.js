@@ -12,15 +12,15 @@ function validateCreateRequest(req, res, next) {
     );
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
   }
-   if (!req.body.address) {
-    ErrorResponse.message =
-      "Something went wrong, when we are creating request";
-    ErrorResponse.error = new AppError(
-      ["address not found in the incoming request correctly"],
-      StatusCodes.BAD_REQUEST,
-    );
-    return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
-  }
+//    if (!req.body.address) {
+//     ErrorResponse.message =
+//       "Something went wrong, when we are creating request";
+//     ErrorResponse.error = new AppError(
+//       ["address not found in the incoming request correctly"],
+//       StatusCodes.BAD_REQUEST,
+//     );
+//     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+//   }
    if (!req.body.code) {
     ErrorResponse.message =
       "Something went wrong, when we are creating request";
