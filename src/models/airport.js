@@ -24,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey : "arrivalAirportId",
         onUpdate : "CASCADE",
         onDelete : "CASCADE"
-
       })
 
     }
