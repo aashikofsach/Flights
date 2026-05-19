@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Airplane extends Model {
     /**
@@ -11,28 +9,36 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-
+      this.hasMany(models.Flight, {
+        foreignKey: "airplaneId",
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      });
+      
     }
   }
   // here we added the object of type and allowNull, by default we just get modelNumber : DataTypes.STRING
-  Airplane.init({
-    modelNumber: {
-      type : DataTypes.STRING,
-      allowNull : false,
-      validate :{
-        isAlphanumeric : true
-      }
+  Airplane.init(
+    {
+      modelNumber: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          isAlphanumeric: true,
+        },
+      },
+      capacity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          max: 1500,
+        },
+      },
     },
-    capacity: {
-      type : DataTypes.INTEGER,
-      allowNull : false,
-      validate :{
-        max : 1500
-      }
-    }
-  }, {
-    sequelize,
-    modelName: 'Airplane',
-  });
+    {
+      sequelize,
+      modelName: "Airplane",
+    },
+  );
   return Airplane;
 };
