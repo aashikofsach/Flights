@@ -49,10 +49,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull : false
     },
     arrivalTime: {
-      type : DataTypes.DATE
+      type : DataTypes.DATE,
+      allowNull: false
     },
     departureTime: {
-      type : DataTypes.DATE
+      type : DataTypes.DATE,
+      allowNull: false
     },
     price:{
       type :  DataTypes.INTEGER,
