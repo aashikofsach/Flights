@@ -1,15 +1,22 @@
 const { StatusCodes } = require("http-status-codes");
-const {  FlightRepository } = require("../repositories");
+const { FlightRepository } = require("../repositories");
 const AppError = require("../utils/errors/app-error");
 const airplane = require("../models/airplane");
+const { validateTime } = require("../utils/helpers/datetime-helpers");
 
 const flightRepository = new FlightRepository();
 
 async function createFlight(data) {
   try {
+    validateTime(data.departureTime, data.arrivalTime);
     const flight = await flightRepository.create(data);
     return flight;
   } catch (error) {
+    // Handle validation errors using error.type
+    if (error.type === "TIME_VALIDATION_ERROR") {
+      throw new AppError(error.explaination, error.statusCode, "TIME_VALIDATION_ERROR");
+    }
+
     if (error.name === "SequelizeValidationError") {
       console.log("jai maata di ");
       let explaination = [];
@@ -19,7 +26,7 @@ async function createFlight(data) {
 
       console.log("jai maata di jai bajrang bali", explaination);
 
-      throw new AppError(explaination, StatusCodes.BAD_REQUEST);
+    //   throw new AppError(explaination, StatusCodes.BAD_REQUEST, "VALIDATION_ERROR");
     }
 
     throw new AppError(
@@ -29,11 +36,6 @@ async function createFlight(data) {
   }
 }
 
-
-
-
-
 module.exports = {
   createFlight,
- 
 };
