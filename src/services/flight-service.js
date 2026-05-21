@@ -44,6 +44,9 @@ async function createFlight(data) {
 
 async function getAllFlights(query) {
   let customFilter = {};
+  let sortFilter = [] ;
+
+
   const endingTime = " 23:59:00";
   if (query.trips) {
     const [departureAirportId, arrivalAirportId] = query.trips.split("-");
@@ -70,8 +73,15 @@ async function getAllFlights(query) {
       [Op.between]: [query.tripDate, query.tripDate + endingTime],
     };
   }
+  if(query.sort)
+  {
+    const params = query.sort.split(",");
+    const sortFilters = params.map((param)=> param.split("_"));
+    sortFilter = sortFilters ;
+  }
+  console.log(sortFilter, "here we have the sort filter");
   try {
-    const flights = await flightRepository.getAllFlights(customFilter);
+    const flights = await flightRepository.getAllFlights(customFilter, sortFilter);
     return flights;
   } catch (error) {
     throw new AppError(
