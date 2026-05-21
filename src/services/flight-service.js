@@ -64,6 +64,11 @@ async function getAllFlights(query) {
       [Op.gte]: query.travellers,
     };
   }
+  if (query.tripDate) {
+    customFilter.departureTime = {
+      [Op.between]: [query.tripDate, query.tripDate+" 23:59:00"],
+    };
+  }
   try {
     const flights = await flightRepository.getAllFlights(customFilter);
     return flights;
