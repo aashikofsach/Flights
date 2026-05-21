@@ -64,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
       type : DataTypes.STRING,
       // allowNull: false
     },
-    totalSeats: {
+    totalSeats: { // consider this as avalaible seats, because total seats defined in airplane model.
       type :  DataTypes.INTEGER,
       allowNull : false
     }
