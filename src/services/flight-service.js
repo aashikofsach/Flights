@@ -1,3 +1,5 @@
+const {Op} = require("sequelize")
+
 const { StatusCodes } = require("http-status-codes");
 const { FlightRepository } = require("../repositories");
 const AppError = require("../utils/errors/app-error");
@@ -47,6 +49,16 @@ async function getAllFlights(query) {
     customFilter.departureAirportId = departureAirportId;
     customFilter.arrivalAirportId = arrivalAirportId;
     // have to handle case when both id are same
+  }
+  if(query.price)
+  {
+    const [lowerPrice , higherprice] = query.price.split("-");
+    customFilter.price ={
+      [Op.between]: [lowerPrice, (higherprice== undefined) ? 20000 : higherprice]
+    }
+
+
+
   }
   try {
 
