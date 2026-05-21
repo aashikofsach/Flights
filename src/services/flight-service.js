@@ -14,7 +14,11 @@ async function createFlight(data) {
   } catch (error) {
     // Handle validation errors using error.type
     if (error.type === "TIME_VALIDATION_ERROR") {
-      throw new AppError(error.explaination, error.statusCode, "TIME_VALIDATION_ERROR");
+      throw new AppError(
+        error.explaination,
+        error.statusCode,
+        "TIME_VALIDATION_ERROR",
+      );
     }
 
     if (error.name === "SequelizeValidationError") {
@@ -26,7 +30,7 @@ async function createFlight(data) {
 
       console.log("jai maata di jai bajrang bali", explaination);
 
-    //   throw new AppError(explaination, StatusCodes.BAD_REQUEST, "VALIDATION_ERROR");
+      //   throw new AppError(explaination, StatusCodes.BAD_REQUEST, "VALIDATION_ERROR");
     }
 
     throw new AppError(
@@ -36,6 +40,27 @@ async function createFlight(data) {
   }
 }
 
+async function getAllFlights(query) {
+  let customFilter = {};
+  if (query.trips) {
+    const [departureAirportId, arrivalAirportId] = query.trips.split("-");
+    customFilter.departureAirportId = departureAirportId;
+    customFilter.arrivalAirportId = arrivalAirportId;
+    // have to handle case when both id are same
+  }
+  try {
+
+    const flights = await flightRepository.getAllFlights(customFilter);
+    return flights ;
+  } catch (error) {
+  throw new AppError(
+      "Cannot able to get all flights ",
+      StatusCodes.INTERNAL_SERVER_ERROR,
+    );
+  }
+}
+
 module.exports = {
   createFlight,
+  getAllFlights
 };
