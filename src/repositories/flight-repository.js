@@ -1,4 +1,4 @@
-const { Flight, Airplane } = require("../models/");
+const { Flight, Airplane, Airport } = require("../models/");
 const CrudRepository = require("./crud-repository");
 
 class FlightRepository extends CrudRepository {
@@ -13,9 +13,19 @@ class FlightRepository extends CrudRepository {
       include: [
         {
           model: Airplane,
-            
-        
+          required: true, // this act as inner join 
         },
+        {
+          model: Airport,
+          required: true,
+          as : "departureAirport"
+        },
+        {
+            model : Airport,    
+            required : true ,
+            as : "arrivalAirport"
+
+        }
       ],
     });
     return response;
