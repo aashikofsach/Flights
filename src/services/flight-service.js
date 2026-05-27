@@ -91,7 +91,29 @@ async function getAllFlights(query) {
   }
 }
 
+async function getFlight(id)
+{
+    try {
+    const flight = await flightRepository.get(id);
+    return flight;
+  } catch (error) {
+    console.log("alvi")
+    if (error.statusCode === StatusCodes.NOT_FOUND)
+      throw new AppError(
+        "The Flight which you requested not found",
+        error.statusCode,
+      );
+    throw new AppError(
+      "Cannot able to get flight ",
+      StatusCodes.INTERNAL_SERVER_ERROR,
+    );
+  }
+
+
+}
+
 module.exports = {
   createFlight,
   getAllFlights,
+  getFlight
 };

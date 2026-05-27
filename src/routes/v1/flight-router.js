@@ -10,7 +10,8 @@ router.post("/",FlightMiddleware.validateCreateRequest, flightController.createF
 // router.delete("/:id",airportController.destroyAirport);
 // router.patch("/:id",airportController.updateAirport);
  // trips=DEL-MUM
-router.get("/", flightController.getFlights)
+router.get("/", flightController.getAllFlights) ;
+router.get("/:id",flightController.getFlight);
 
 
 
