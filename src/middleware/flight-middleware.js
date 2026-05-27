@@ -12,7 +12,7 @@ function validateCreateRequest(req, res, next) {
     );
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
   }
-   if (!req.body.airplaneId) {
+  if (!req.body.airplaneId) {
     ErrorResponse.message =
       "Something went wrong, when we are creating request";
     ErrorResponse.error = new AppError(
@@ -21,7 +21,7 @@ function validateCreateRequest(req, res, next) {
     );
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
   }
-   if (!req.body.departureAirportId) {
+  if (!req.body.departureAirportId) {
     ErrorResponse.message =
       "Something went wrong, when we are creating request";
     ErrorResponse.error = new AppError(
@@ -30,7 +30,7 @@ function validateCreateRequest(req, res, next) {
     );
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
   }
-   if (!req.body.arrivalAirportId) {
+  if (!req.body.arrivalAirportId) {
     ErrorResponse.message =
       "Something went wrong, when we are creating request";
     ErrorResponse.error = new AppError(
@@ -39,7 +39,7 @@ function validateCreateRequest(req, res, next) {
     );
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
   }
-   if (!req.body.arrivalTime) {
+  if (!req.body.arrivalTime) {
     ErrorResponse.message =
       "Something went wrong, when we are creating request";
     ErrorResponse.error = new AppError(
@@ -48,7 +48,7 @@ function validateCreateRequest(req, res, next) {
     );
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
   }
-   if (!req.body.departureTime) {
+  if (!req.body.departureTime) {
     ErrorResponse.message =
       "Something went wrong, when we are creating request";
     ErrorResponse.error = new AppError(
@@ -57,7 +57,7 @@ function validateCreateRequest(req, res, next) {
     );
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
   }
-   if (!req.body.price) {
+  if (!req.body.price) {
     ErrorResponse.message =
       "Something went wrong, when we are creating request";
     ErrorResponse.error = new AppError(
@@ -66,7 +66,7 @@ function validateCreateRequest(req, res, next) {
     );
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
   }
-   if (!req.body.totalSeats) {
+  if (!req.body.totalSeats) {
     ErrorResponse.message =
       "Something went wrong, when we are creating request";
     ErrorResponse.error = new AppError(
@@ -78,6 +78,29 @@ function validateCreateRequest(req, res, next) {
   next();
 }
 
+function validateUpdateSeatsRequest(req, res, next) {
+  // if (!req.body.flightId) {
+  //   ErrorResponse.message =
+  //     "Something went wrong, when we are creating request";
+  //   ErrorResponse.error = new AppError(
+  //     ["flightId not found in the incoming request correctly"],
+  //     StatusCodes.BAD_REQUEST,
+  //   );
+  //   return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+  // }
+  if (!req.body.seats) {
+    ErrorResponse.message =
+      "Something went wrong, when we are creating request";
+    ErrorResponse.error = new AppError(
+      ["seats not found in the incoming request correctly"],
+      StatusCodes.BAD_REQUEST,
+    );
+    return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+  }
+  next();
+}
+
 module.exports = {
   validateCreateRequest,
+  validateUpdateSeatsRequest
 };

@@ -48,13 +48,17 @@ class FlightRepository extends CrudRepository {
   }
 
   async updateRemainingSeats(flightId, seats, dec = true) {
-    if (dec) {
-      const response = await Flight.decrement("totalSeats", { by: seats });
-      return response;
+    const flight = await Flight.findByPk(flightId);
+    const shouldDecreaseSeats = dec === true || dec === "true";
+    if (shouldDecreaseSeats) {
+      await flight.decrement("totalSeats", { by: seats });
+      
     } else {
-      const response = await Flight.decrement("totalSeats", { by: seats });
-      return response;
+      await flight.increment("totalSeats", { by: seats });
+      
     }
+    await flight.reload(); // so that we can return the updated value 
+    return flight;
   }
 }
 

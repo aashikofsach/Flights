@@ -12,6 +12,7 @@ router.post("/",FlightMiddleware.validateCreateRequest, flightController.createF
  // trips=DEL-MUM
 router.get("/", flightController.getAllFlights) ;
 router.get("/:id",flightController.getFlight);
+router.patch("/:id/seats", FlightMiddleware.validateUpdateSeatsRequest , flightController.updateFlightSeats)
 
 
 
