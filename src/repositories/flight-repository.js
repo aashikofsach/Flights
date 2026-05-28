@@ -1,5 +1,10 @@
+
 const { Flight, Airplane, Airport, City } = require("../models/");
 const CrudRepository = require("./crud-repository");
+
+const {addRowLockonFlights} = require("./queries")
+
+const db = require("../models/");
 
 class FlightRepository extends CrudRepository {
   constructor() {
@@ -48,6 +53,7 @@ class FlightRepository extends CrudRepository {
   }
 
   async updateRemainingSeats(flightId, seats, dec = true) {
+    await db.sequelize.query(addRowLockonFlights(flightId)); // here we have to use actual table name 
     const flight = await Flight.findByPk(flightId);
     const shouldDecreaseSeats = dec === true || dec === "true";
     if (shouldDecreaseSeats) {
@@ -57,7 +63,8 @@ class FlightRepository extends CrudRepository {
       await flight.increment("totalSeats", { by: seats });
       
     }
-    await flight.reload(); // so that we can return the updated value 
+    await flight.reload(); // so that we can return the updated value, without this we are getting the stale data .
+
     return flight;
   }
 }
