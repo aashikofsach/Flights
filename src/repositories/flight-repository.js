@@ -1,8 +1,7 @@
-
 const { Flight, Airplane, Airport, City } = require("../models/");
 const CrudRepository = require("./crud-repository");
 
-const {addRowLockonFlights} = require("./queries")
+const { addRowLockonFlights } = require("./queries");
 
 const db = require("../models/");
 
@@ -53,19 +52,36 @@ class FlightRepository extends CrudRepository {
   }
 
   async updateRemainingSeats(flightId, seats, dec = true) {
-    await db.sequelize.query(addRowLockonFlights(flightId)); // here we have to use actual table name 
-    const flight = await Flight.findByPk(flightId);
-    const shouldDecreaseSeats = dec === true || dec === "true";
-    if (shouldDecreaseSeats) {
-      await flight.decrement("totalSeats", { by: seats });
-      
-    } else {
-      await flight.increment("totalSeats", { by: seats });
-      
-    }
-    await flight.reload(); // so that we can return the updated value, without this we are getting the stale data .
+    const transaction = await db.sequelize.transaction();
+    try {
+      await db.sequelize.query(addRowLockonFlights(flightId), {
+        transaction,
+      }); // here we have to use actual table name
+      const flight = await Flight.findByPk(flightId, {
+        transaction,
+      });
+      const shouldDecreaseSeats = dec === true || dec === "true";
+      if (shouldDecreaseSeats) {
+        await flight.decrement("totalSeats", {
+          by: seats,
+          transaction,
+        });
+      } else {
+        await flight.increment("totalSeats", {
+          by: seats,
+          transaction,
+        });
+      }
+      await flight.reload({
+        transaction,
+      }); // so that we can return the updated value, without this we are getting the stale data .
 
-    return flight;
+      await transaction.commit();
+      return flight;
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    }
   }
 }
 
