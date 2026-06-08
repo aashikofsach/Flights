@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/flightservice/api",apiRoutes )
+// app.use("/flightservice/api",apiRoutes )
 
 app.use("/api", apiRoutes);
 
